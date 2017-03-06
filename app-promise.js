@@ -2,6 +2,8 @@ const yargs = require('yargs');
 const axios = require('axios');
 const _ = require('lodash');
 
+const config = require('./config/appconfig.json');
+
 const argv = yargs
   .options({
     a:{
@@ -27,14 +29,14 @@ var encodeAddr = encodeURIComponent(argv.address);
 if(_.isUndefined(argv.a)){
   encodeAddr = encodeURIComponent('10026');
 }
-var geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeAddr}`;
+var geocodeUrl = `${config.googleapismap}${encodeAddr}`;
 axios.get(geocodeUrl).then((response) => {
   if(response.data.status === 'ZERO_RESULTS'){
     throw new Error('Unable to find the address');
   }
   var lat = response.data.results[0].geometry.location.lat;
   var lng = response.data.results[0].geometry.location.lng;
-  var weatherUrl = `https://api.darksky.net/forecast/<API-KEY>/${lat},${lng}`;
+  var weatherUrl = `${config.darksky}${lat},${lng}`;
   console.log(response.data.results[0].formatted_address);
   return axios.get(weatherUrl);
   console.log(response.data);

@@ -1,9 +1,10 @@
 const request = require('request');
+const config = require('../config/appconfig.json');
 
 var geocodeAddress = (address, callback) => {
   var encodeAddr = encodeURIComponent(address);
   request({
-    url:`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeAddr}`,
+    url:`${config.googleapismap}${encodeAddr}`,
     json: true
   },(error, response, body) => {
     if(error){
