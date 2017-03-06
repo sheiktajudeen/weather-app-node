@@ -1,0 +1,4 @@
+{
+  "googleapismap": "https://maps.googleapis.com/maps/api/geocode/json?address=",
+  "darksky":"https://api.darksky.net/forecast/<API-KEY>/"
+}
